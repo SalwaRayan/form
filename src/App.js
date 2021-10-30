@@ -9,6 +9,8 @@ class App extends React.Component {
     super()
 
 		this.state = {
+			firstName: "",
+			lastName: "",
 			email: "",
 			password: "",
 			rememberMe: false,
@@ -58,17 +60,26 @@ class App extends React.Component {
 		}
 	}
 
+	handleFirstName = (e) => {
+		this.setState({ firstName: e.target.value })
+	}
+	handleLastName = (e) => {
+		this.setState({ lastName: e.target.value })
+	}
+
+
   render() {
     return (
       <>
         <div>
           <h1 className="m-3">Login</h1>
         </div>
-				{ this.isSubmitted === true ? 
+				{ this.isSubmitted !== true ? 
+					<Form  onSubmit={this.onSubmit}  onChangeMail={this.handleEmailChange}  onChangePassword={this.handlePasswordChange}  onChangeRememberMe={this.handleRememberMe} onChangeFirstName={this.handleFirstName} onChangeLastName={this.handleLastName}/>
+						:
 					<div>
 						<p>Form Submitted</p>
-					</div> :
-					<Form  onSubmit={this.onSubmit}  onChangeMail={this.handleEmailChange}  onChangePassword={this.handlePasswordChange}  onChangeRememberMe={this.handleRememberMe} />
+					</div>
 				}
 
       </>

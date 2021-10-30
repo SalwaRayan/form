@@ -74,14 +74,13 @@ class App extends React.Component {
         <div>
           <h1 className="m-3">Login</h1>
         </div>
-				{ this.isSubmitted !== true ? 
-					<Form  onSubmit={this.onSubmit}  onChangeMail={this.handleEmailChange}  onChangePassword={this.handlePasswordChange}  onChangeRememberMe={this.handleRememberMe} onChangeFirstName={this.handleFirstName} onChangeLastName={this.handleLastName}/>
-						:
-					<div>
+				<div>
+					{ this.isSubmitted !== true ? 
+						<Form  onSubmit={this.onSubmit}  onChangeMail={this.handleEmailChange}  onChangePassword={this.handlePasswordChange}  onChangeRememberMe={this.handleRememberMe} onChangeFirstName={this.handleFirstName} onChangeLastName={this.handleLastName}/>
+							:
 						<p>Form Submitted</p>
-					</div>
-				}
-
+					}
+				</div>
       </>
     );
   }

@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import 'bootstrap/dist/css/bootstrap.min.css'
+
 class Input extends Component {
   render() {
 
@@ -7,7 +9,10 @@ class Input extends Component {
 
     return (
       <>
-        <input type={type} onChange={onChange} />
+        {type === "checkbox" ? 
+          <input type={type} onChange={onChange} className="me-3"/> :
+          <input type={type} onChange={onChange} className="form-control is-invalid" id="validationTextarea" required />
+        } 
       </>
     );
   }

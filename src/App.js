@@ -1,8 +1,8 @@
 import React from 'react';
 
 import 'bootstrap/dist/css/bootstrap.min.css'
-import Button from './components/Button'
-import Input from './components/Input'
+import Form from './components/Form';
+
 
 class App extends React.Component {
   constructor() {
@@ -26,6 +26,8 @@ class App extends React.Component {
 
 		if (regex) {
 			this.setState({ emailIsValid: true })
+		} else {
+			this.setState({ emailIsValid: false })
 		}
 	}
 
@@ -34,38 +36,40 @@ class App extends React.Component {
 
 		if (e.target.value.length > 5) {
 			this.setState({ passwordIsValid: true })
+		} else {
+			this.setState({ passwordIsValid: false })
 		}
 	}
 
-	handleRememberMe = () => {
-		this.setState({ rememberMe: true })
-	}
+	handleRememberMe = (e) => {
+		console.log(e)
+		if (e.target.checked) {
+			this.setState({ rememberMe: true })
+		} else {
+			this.setState({ rememberMe: false })
+		}
+  }
 
 	onSubmit = (e) => {
 		e.preventDefault()
+
+		if (this.state.emailIsValid && this.state.passwordIsValid) {
+			this.setState({ isSubmitted: true })
+		}
 	}
 
   render() {
     return (
       <>
         <div>
-          <h1>Login</h1>
+          <h1 className="m-3">Login</h1>
         </div>
-				<form>
-          <label>
-				  	Email address 
-					  <Input type="email" onChange={this.handleEmailChange} />
-				  </label>
-          <label>
-				  	Password 
-					  <Input type="password" onChange={this.handlePasswordChange} />
-				  </label>
-          <div>
-            <Input type="checkbox" onChange={this.handleRememberMe} />
-            <p>Remember Me</p>
-          </div>
-          <Button onSubmit={this.onSubmit} />
-				</form>
+				{ this.isSubmitted === true ? 
+					<div>
+						<p>Form Submitted</p>
+					</div> :
+					<Form  onSubmit={this.onSubmit}  onChangeMail={this.handleEmailChange}  onChangePassword={this.handlePasswordChange}  onChangeRememberMe={this.handleRememberMe} />
+				}
 
       </>
     );

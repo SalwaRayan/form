@@ -1,7 +1,8 @@
-import React from 'react';
+import React from 'react'
 
 import 'bootstrap/dist/css/bootstrap.min.css'
-import Form from './components/Form';
+import Form from './components/Form'
+import Success from './components/Success'
 
 
 class App extends React.Component {
@@ -75,10 +76,9 @@ class App extends React.Component {
           <h1 className="m-3">Login</h1>
         </div>
 				<div>
-					{ this.isSubmitted !== true ? 
+					{ this.state.isSubmitted === true ? <Success email={this.state.email}/>
+						:
 						<Form  onSubmit={this.onSubmit}  onChangeMail={this.handleEmailChange}  onChangePassword={this.handlePasswordChange}  onChangeRememberMe={this.handleRememberMe} onChangeFirstName={this.handleFirstName} onChangeLastName={this.handleLastName}/>
-							:
-						<p>Form Submitted</p>
 					}
 				</div>
       </>

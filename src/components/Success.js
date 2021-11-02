@@ -7,7 +7,7 @@ class Success extends Component {
 
     return (
       <div>
-        <p>Form Submitted</p>
+        <p className="text-success text-center pt-5 fs-1">Form Submitted</p>
         <p>{email}</p>
       </div>
     );

@@ -22,66 +22,101 @@ class App extends React.Component {
   }
 
   handleEmailChange = (e) => {
-		let str = e.target.value
-		const regex = /[\w\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(str)
+		const { value } = e.target
+		const regex = /[\w\\.]+@([\w-]+\.)+[\w-]{2,4}$/
+		const result = regex.test(value)
 
-		this.setState({ email: str })
+			this.setState({ 
+				email: value, 
+				emailIsValid: result 
+			})
 
-		if (regex) {
-			this.setState({ emailIsValid: true })
-		} else {
-			this.setState({ emailIsValid: false })
-		}
+		// if (result) {
+		// 	this.setState({ email: str, emailIsValid: true })
+		// } else {
+		// 	this.setState({ email: str, emailIsValid: false })
+		// }
 	}
 
   handlePasswordChange = (e) => {
-		this.setState({ password: e.target.value })
+		const { value } = e.target
 
-		if (e.target.value.length > 5) {
-			this.setState({ passwordIsValid: true })
-		} else {
-			this.setState({ passwordIsValid: false })
-		}
+		this.setState({ 
+			password: value,
+			passwordIsValid: value.length > 5
+		})
+
+		// if (value.length > 5) {
+		// 	this.setState({ 
+		// 		password: value, 
+		// 		passwordIsValid: true 
+		// 	})
+		// } else {
+		// 	this.setState({ 
+		// 		password: value, 
+		// 		passwordIsValid: false 
+		// 	})
+		// }
 	}
 
 	handleRememberMe = (e) => {
-		console.log(e)
-		if (e.target.checked) {
-			this.setState({ rememberMe: true })
-		} else {
-			this.setState({ rememberMe: false })
-		}
+		const { checked } = e.target
+
+		this.setState({ remeberMe: checked })
+
+		// if (e.target.checked) {
+		// 	this.setState({ rememberMe: true })
+		// } else {
+		// 	this.setState({ rememberMe: false })
+		// }
   }
 
 	onSubmit = (e) => {
 		e.preventDefault()
+		
+		this.setState({ isSubmitted: this.state.emailIsValid && this.state.passwordIsValid })
 
-		if (this.state.emailIsValid && this.state.passwordIsValid) {
-			this.setState({ isSubmitted: true })
-		}
+		// if (this.state.emailIsValid && this.state.passwordIsValid) {
+		// 	this.setState({ isSubmitted: true })
+		// }
 	}
 
 	handleFirstName = (e) => {
-		this.setState({ firstName: e.target.value })
+		const { value } = e.target
+		
+		this.setState({ firstName: value })
 	}
+
 	handleLastName = (e) => {
-		this.setState({ lastName: e.target.value })
+		const { value } = e.target
+
+		this.setState({ lastName: value })
 	}
 
 
   render() {
     return (
-      <>
+      <div className="container">
         <div>
           <h1 className="m-3">Login</h1>
         </div>
 				<div>
-					{ this.state.isSubmitted === true ? <Success email={this.state.email}/>
+					{ this.state.isSubmitted === true ? 
+						<Success email={this.state.email}/>
 						:
-						<Form  onSubmit={this.onSubmit}  onChangeMail={this.handleEmailChange}  onChangePassword={this.handlePasswordChange}  onChangeRememberMe={this.handleRememberMe} onChangeFirstName={this.handleFirstName} onChangeLastName={this.handleLastName}/>
+						<Form  
+							onSubmit={this.onSubmit}  
+							onChangeMail={this.handleEmailChange}  
+							onChangePassword={this.handlePasswordChange}  
+							onChangeRememberMe={this.handleRememberMe} 
+							onChangeFirstName={this.handleFirstName} 
+							onChangeLastName={this.handleLastName}
+							emailIsValid={this.state.emailIsValid}
+							passwordIsValid={this.state.passwordIsValid}
+						/>
 					}
 				</div>
-      </>
+      </div>
     );
   }
 }
